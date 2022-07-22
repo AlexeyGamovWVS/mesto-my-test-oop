@@ -1,0 +1,13 @@
+.popup_zoom-window {
+    display: flex;
+    flex-direction: column;
+    max-height: 90%;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .popup_zoom-window {
+       padding: 0 40px;
+       max-height: 80%;
+    }
+}

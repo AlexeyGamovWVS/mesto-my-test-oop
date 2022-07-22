@@ -1,0 +1,9 @@
+.mesto {
+    background-color: #fff;
+    color:#000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    position: relative;
+    }

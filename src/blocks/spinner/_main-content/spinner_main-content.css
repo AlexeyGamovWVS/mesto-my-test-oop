@@ -1,0 +1,6 @@
+.spinner_main-content {
+    min-height: 50vh; 
+}
+.spinner_main-content:after { 
+    font-size: 80px;
+}

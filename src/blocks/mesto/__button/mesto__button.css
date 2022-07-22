@@ -1,0 +1,15 @@
+.mesto__button {
+    border: none;
+    background-color: #fff;
+    background-image: url(../../../images/Vector-heart.svg);
+    background-position: center;
+    background-size: cover;
+    width: 22px;
+    height: 19px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.mesto__button:hover {
+    opacity: .5;
+}

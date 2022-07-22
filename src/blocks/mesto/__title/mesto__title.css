@@ -1,0 +1,12 @@
+.mesto__title {
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    font-style: normal;
+    margin: 0 0 0 21px;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: calc(100% - 22px - 2*20px - 20px);
+    }

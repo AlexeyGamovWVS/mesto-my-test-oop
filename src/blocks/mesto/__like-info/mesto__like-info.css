@@ -1,0 +1,5 @@
+.mesto__like-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+}

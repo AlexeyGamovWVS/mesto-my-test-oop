@@ -1,0 +1,12 @@
+.popup__window {
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    position: relative;
+}
+
+@media screen and (max-width: 650px) {
+    .popup__window {
+      padding-left: 0;
+    }
+}

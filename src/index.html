@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Mesto Russia</title>
+  </head>
+   <body class="page">
+       <header class="header">
+           <img class="header__logo" src="<%=require('./images/Vector.svg')%>" alt="Mesto Russia">
+       </header>
+       <main class="content">
+           <section class="profile">
+            <div class="spinner"></div>
+               <div class="profile__about">
+                <button class="profile__avatar-button" type="button"></button>
+                <img class="profile__photo" src="<%=require('./images/icon.png')%>" alt="Фотография профиля">   
+                 <div class="profile__info">
+                    <div class="profile__user">
+                        <h1 class="profile__name"></h1>
+                        <button class="profile__edit-button" type="button"></button>
+                    </div>
+                    <p class="profile__description"></p>
+                  </div>
+                </div>
+                <button class="profile__add-button" type="button"></button>
+           </section>
+           <section class="elements">
+            <div class="spinner spinner_main-content"></div>
+           </section>
+       </main>
+       <footer class="footer">
+           <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+       </footer>
+       <div class="popup popup_form_edit-profile">
+        <div class="popup__window">
+        <form class="popup__container popup_profile-edit" name="profile_edit" novalidate>
+            <fieldset class="popup__form">
+                <h2 class="popup__heading">Редактировать профиль</h2>
+                <input class="popup__item popup__item_el_name" name="name" type="text" id="name" placeholder="Ваше имя" minlength = "2" maxlength="40" required>
+                <span id="name-error" class="popup__item-error"></span>
+                <input class="popup__item popup__item_el_description" name="description" type="text" id="description" placeholder="Чем вы занимаетесь" minlength = "2" maxlength="200" required>
+                <span id="description-error" class="popup__item-error popup__item-error-active"></span>
+                <button class="popup__button popup__button_status_save popup__button_state_inactive" type="submit" id="submit-profile">Сохранить</button>
+            </fieldset>
+        </form>
+         <button class="popup__button popup__button_status_close" type="button"></button>
+      </div>
+    </div>
+    <div class="popup popup_form_new-place">
+        <div class="popup__window">
+        <form class="popup__container popup_place-add" name="profile_add" novalidate>
+            <fieldset class="popup__form place-adding">
+                <h2 class="popup__heading">Новое место</h2>
+                <input class="popup__item popup__item_el_place-name popup__item_form_place-add" name="place-name" type="text" id="place-name" placeholder="Название" minlength="2" maxlength="30" required>
+                <span id="place-name-error" class="popup__item-error"></span>
+                <input class="popup__item popup__item_el_place-url popup__item_form_place-add" name="place-description" type="url" id="place-description" placeholder="Ссылка на место" required>
+                <span id="place-description-error" class="popup__item-error"></span>
+                <button class="popup__button popup__button_status_create popup__button_state_inactive" type="submit" disabled>Создать</button>
+            </fieldset>
+        </form>
+        <button class="popup__button popup__button_status_close" type="button"></button>
+     </div>
+    </div>
+    <div class="popup popup_zoom-picture">
+        <div class="popup__window popup_zoom-window">
+        <button class="popup__button popup__button_status_close popup__button_status_zoom-close" type="button"></button>
+        <img class="popup__zoom-pic" src="" alt="">
+        <h2 class="popup__zoom-title"></h2>
+     </div>
+    </div>
+    <div class="popup popup_edit_avatar">
+        <div class="popup__window">
+        <form class="popup__container popup_avatar_add" name="avatar_add" novalidate>
+            <fieldset class="popup__form avatar_add">
+                <h2 class="popup__heading">Обновить аватар</h2>
+                <input class="popup__item popup__item_el_avatar-add popup__item_form_avatar-add" name="avatar-url" type="url" id="avatar-url" placeholder="Ссылка на фото" required>
+                <span id="avatar-url-error" class="popup__item-error"></span>
+                <button class="popup__button popup__button_status_save popup__button_state_inactive" type="submit">Сохранить</button>
+            </fieldset>
+        </form>
+        <button class="popup__button popup__button_status_close" type="button"></button>
+     </div>
+    </div>
+    <template id="new-mesto">
+        <div class="mesto">
+            <button class="mesto__delete" type="button"></button>
+            <img class="mesto__image" src="" alt="">
+            <div class="mesto__info">
+               <h2 class="mesto__title"></h2>
+               <div class="mesto__like-info">
+                <button class="mesto__button" type="button"></button>
+               <h2 class="mesto__likes">0</h2>
+               </div>
+              </div>
+       </div>
+    </template>
+   </body>
+</html>
