@@ -21,4 +21,8 @@ export default class PopupWithForm extends Popup {
       this._onSubmit(this._getInputValues(), this._form);
     })
   }
+
+  getForm() {
+    return this._form;
+  }
 }

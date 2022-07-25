@@ -3,13 +3,10 @@ import {
   popupZoom,
   popupEdit,
   popupAdd,
-  editForm,
   profileName,
   profileDescription,
   updateName,
   updateDescription,
-  addForm,
-  anyPopup,
   enableValidationConfig,
   editAvatar,
   profileAvatar,
@@ -17,7 +14,6 @@ import {
   cardTemplateSelector,
   zoomPic,
   zoomName,
-  addPopup,
 } from "./components/utils.js";
 
 import "./pages/index.css";
@@ -27,6 +23,7 @@ import Section from "./components/Section.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import UserInfo from "./components/UserInfo.js";
 import PopupWithForm from "./components/PopupWithForm.js";
+import { removeErrorSpan, FormValidator } from './components/validation.js';  
 
 let adminId;
 
@@ -47,8 +44,26 @@ const serverCards = new Section(
     renderer: (item) => {
       serverCards.addItem(createCard(item, adminId));
     },
-  }, mestoContainer
+  },
+  mestoContainer
 );
+
+const editAvatarForm = new PopupWithForm({
+  popup: editAvatar,
+  submitCallback: (arrayOfInputsValues, form) => {
+    const userData = {
+      avatar: arrayOfInputsValues[0],
+    };
+    api
+      .editProfilePic(userData)
+      .then((data) => {
+        user.setUserAvavtar(data);
+        form.reset();
+        editAvatarForm.close();
+      })
+      .catch((err) => console.error(err));
+  },
+});
 
 const popupProfileForm = new PopupWithForm({
   popup: popupEdit,
@@ -112,10 +127,21 @@ Promise.all([api.getProfile(), api.getAllCards()])
   })
   .catch((err) => console.log(err));
 
+
 //установка слушателей
+
 imagePopup.setEventListeners();
 popupProfileForm.setEventListeners();
 popupPostAddForm.setEventListeners();
+editAvatarForm.setEventListeners();
+
+const profileFormValidation = new FormValidator(enableValidationConfig, popupProfileForm.getForm());
+const profileAvatarValidation = new FormValidator(enableValidationConfig, editAvatarForm.getForm());
+const postFormValidation = new FormValidator(enableValidationConfig, popupPostAddForm.getForm());
+
+profileFormValidation.enableValidation();
+profileAvatarValidation.enableValidation();
+postFormValidation.enableValidation();
 
 document
   .querySelector(".profile__edit-button")
@@ -123,11 +149,20 @@ document
     updateName.value = profileName.textContent;
     updateDescription.value = profileDescription.textContent;
     popupProfileForm.open();
+    removeErrorSpan(popupEdit);
   });
 
 document.querySelector(".profile__add-button").addEventListener("click", () => {
   popupPostAddForm.open();
+  removeErrorSpan(popupAdd);
 });
+
+document
+  .querySelector(".profile__avatar-button")
+  .addEventListener("click", () => {
+    editAvatarForm.open();
+    removeErrorSpan(editAvatar);
+  });
 
 //старый код
 //   Promise.all([getProfile(), getAllCards()])

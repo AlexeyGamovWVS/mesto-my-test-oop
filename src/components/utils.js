@@ -51,6 +51,7 @@ const placeUrl = document.querySelector(".popup__item_el_place-url");
 const mestoCards = document.querySelector("#new-mesto").content;
 const spinners = Array.from(document.querySelectorAll(".spinner"));
 const cardTemplateSelector = "#new-mesto";
+const forms = document.forms;
 
 const enableValidationConfig = {
   formSelector: ".popup__container",
@@ -90,4 +91,5 @@ export {
   mestoCards,
   spinners,
   cardTemplateSelector,
+  forms,
 };
