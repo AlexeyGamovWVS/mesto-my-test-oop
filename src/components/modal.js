@@ -1,4 +1,4 @@
-import { popupEdit, profileName, profileDescription, updateName, updateDescription,
+/*import { popupEdit, profileName, profileDescription, updateName, updateDescription,
      page, updateAvatarPic, editAvatar, profileAvatar, editForm } from './utils.js';
 import { getProfile, editProfileInfo, editProfilePic } from './api.js';
     
@@ -57,3 +57,4 @@ function renderLoading (button, state, text) {
 }
 
 export { openPopup, closePopup, editProfile, editProfileAvatar, escHandler, renderLoading };
+*/

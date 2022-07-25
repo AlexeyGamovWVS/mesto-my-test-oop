@@ -1,3 +1,4 @@
+/*
 const removeErrorSpan = (popup) => {
     const errorSpan = Array.from(popup.querySelectorAll('.popup__item-error'));
     errorSpan.forEach(span => {
@@ -76,3 +77,4 @@ const pickValidityMessage = (inputElement, config) => {
   }
   
 export { removeErrorSpan, pickValidityMessage, showError, hideError, checkInputValidity, toggleButton, setEventListener, enableValidation};   
+*/

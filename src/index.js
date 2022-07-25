@@ -1,4 +1,156 @@
-import './pages/index.css';
+import {
+  mestoContainer,
+  popupZoom,
+  popupEdit,
+  popupAdd,
+  editForm,
+  profileName,
+  profileDescription,
+  updateName,
+  updateDescription,
+  addForm,
+  anyPopup,
+  enableValidationConfig,
+  editAvatar,
+  profileAvatar,
+  spinners,
+  cardTemplateSelector,
+  zoomPic,
+  zoomName,
+  addPopup,
+} from "./components/utils.js";
+
+import "./pages/index.css";
+import Api from "./components/Api.js";
+import Card from "./components/Card.js";
+import Section from "./components/Section.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import UserInfo from "./components/UserInfo.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+
+let adminId;
+
+//Создание экземпляров
+const api = new Api({
+  url: "https://mesto.nomoreparties.co/plus-cohort-13",
+  urlLikes: "https://nomoreparties.co/v1/plus-cohort-13/cards/likes",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "5f5f6516-2c69-4593-ad66-9a5c627fc536",
+  },
+});
+const user = new UserInfo({ profileName, profileDescription, profileAvatar });
+const imagePopup = new PopupWithImage(popupZoom, zoomPic, zoomName);
+
+const serverCards = new Section(
+  {
+    renderer: (item) => {
+      serverCards.addItem(createCard(item, adminId));
+    },
+  }, mestoContainer
+);
+
+const popupProfileForm = new PopupWithForm({
+  popup: popupEdit,
+  submitCallback: (arrayOfInputsValues, form) => {
+    const userData = {
+      name: arrayOfInputsValues[0],
+      about: arrayOfInputsValues[1],
+    };
+    api
+      .editProfileInfo(userData)
+      .then((data) => {
+        user.setUserInfo(data);
+        form.reset();
+        popupProfileForm.close();
+      })
+      .catch((err) => console.log(err));
+  },
+});
+
+const popupPostAddForm = new PopupWithForm({
+  popup: popupAdd,
+  submitCallback: (arrayOfInputsValues, form) => {
+    const post = {
+      name: arrayOfInputsValues[0],
+      link: arrayOfInputsValues[1],
+    };
+    api
+      .addCardToServer(post)
+      .then((cardData) => {
+        serverCards.addItem(createCard(cardData, adminId));
+        form.reset();
+        popupPostAddForm.close();
+      })
+      .catch((err) => console.error(err));
+  },
+});
+
+//создание карточки
+function createCard(data, adminId) {
+  const card = new Card(
+    {
+      cardInfo: data,
+      handleCardClick: (place, link) => {
+        imagePopup.open(link, place);
+      },
+    },
+    api,
+    cardTemplateSelector,
+    adminId
+  );
+  return card.getCard();
+}
+
+//запуск приложения
+Promise.all([api.getProfile(), api.getAllCards()])
+  .then(([profile, cards]) => {
+    user.setUserInfo(profile);
+    user.setUserAvavtar(profile);
+    adminId = profile._id;
+    serverCards.renderItems(cards);
+  })
+  .catch((err) => console.log(err));
+
+//установка слушателей
+imagePopup.setEventListeners();
+popupProfileForm.setEventListeners();
+popupPostAddForm.setEventListeners();
+
+document
+  .querySelector(".profile__edit-button")
+  .addEventListener("click", () => {
+    updateName.value = profileName.textContent;
+    updateDescription.value = profileDescription.textContent;
+    popupProfileForm.open();
+  });
+
+document.querySelector(".profile__add-button").addEventListener("click", () => {
+  popupPostAddForm.open();
+});
+
+//старый код
+//   Promise.all([getProfile(), getAllCards()])
+//   .then((data) => {
+//     profileName.textContent = data[0].name;
+//     profileDescription.textContent = data[0].about;
+//     profileAvatar.src = data[0].avatar;
+//     profileID = data[0]._id;
+//     const serverCards = data[1];
+//     serverCards.forEach ((serverCards) => {
+//       renderCard (mestoContainer, createCard(serverCards))
+//     })
+//   })
+//   .catch(err => console.log(`Что-то пошло не так: ${err}`))
+//   .finally(() => renderLoadingMainContent(false))
+/*
+
+about: "Пилот-полярник"
+avatar: "https://www.film.ru/sites/default/files/styles/thumb_600x400/public/articles/41336050-1061826.jpg"
+cohort: "plus-cohort-13"
+name: "Ар Джей Макриди"
+_id: "aff48aa652d182768eb1925e"
+
 
 // Импортируем данные
 import { mestoContainer, popupZoom,
@@ -108,3 +260,4 @@ renderLoadingMainContent(true);
   })
 
   export { profileID }
+  */
